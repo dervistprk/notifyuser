@@ -73,10 +73,15 @@ return [
             ],
         ],
 
-        'redis' => [
+        /*'redis' => [
             'driver' => 'redis',
             'connection' => 'cache',
             'lock_connection' => 'default',
+        ],*/
+
+        'redis' => [
+            'driver'     => 'redis',
+            'connection' => 'default',
         ],
 
         'dynamodb' => [

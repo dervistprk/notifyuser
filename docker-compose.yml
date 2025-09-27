@@ -17,9 +17,9 @@ services:
       DB_CONNECTION: pgsql
       DB_HOST: postgres
       DB_PORT: 5432
-      DB_DATABASE: laravel
-      DB_USERNAME: laravel
-      DB_PASSWORD: secret
+      DB_DATABASE: notifyuser
+      DB_USERNAME: dervis
+      DB_PASSWORD: dervis123
       REDIS_HOST: redis
       REDIS_PORT: 6379
 
