@@ -11,7 +11,7 @@ class Customer extends Model
 
     protected $fillable = ['name', 'gsm'];
 
-    public function messages()
+    public function messages(): Customer|\Illuminate\Database\Eloquent\Builder|\Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(Message::class);
     }
