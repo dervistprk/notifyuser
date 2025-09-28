@@ -144,6 +144,62 @@
                     }
                 }
             }
+        },
+        "/api/get-sent-messages": {
+            "get": {
+                "tags": [
+                    "Messages"
+                ],
+                "summary": "Gönderilmiş mesajları listele",
+                "operationId": "ce26487e72059031c635b1503e69c2a3",
+                "responses": {
+                    "200": {
+                        "description": "Gönderilmiş mesajlar başarıyla listelendi",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "properties": {
+                                            "id": {
+                                                "type": "integer",
+                                                "example": 1
+                                            },
+                                            "message_content": {
+                                                "type": "string",
+                                                "example": "Merhaba!"
+                                            },
+                                            "sent_at": {
+                                                "type": "string",
+                                                "format": "date-time",
+                                                "example": "2025-09-28T12:34:56"
+                                            },
+                                            "customer": {
+                                                "properties": {
+                                                    "id": {
+                                                        "type": "integer",
+                                                        "example": 1
+                                                    },
+                                                    "name": {
+                                                        "type": "string",
+                                                        "example": "Ahmet Yılmaz"
+                                                    },
+                                                    "gsm": {
+                                                        "type": "string",
+                                                        "example": "905551112233"
+                                                    }
+                                                },
+                                                "type": "object"
+                                            }
+                                        },
+                                        "type": "object"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
         }
     },
     "tags": [

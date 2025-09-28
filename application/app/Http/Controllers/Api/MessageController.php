@@ -132,4 +132,34 @@ class MessageController extends Controller
             'message' => 'Please send test value true as a parameter.',
         ], 301);
     }
+
+    /**
+     * @OA\Get(
+     *     path="/api/get-sent-messages",
+     *     summary="Gönderilmiş mesajları listele",
+     *     tags={"Messages"},
+     *     @OA\Response(
+     *         response=200,
+     *         description="Gönderilmiş mesajlar başarıyla listelendi",
+     *         @OA\JsonContent(
+     *             type="array",
+     *             @OA\Items(
+     *                 @OA\Property(property="id", type="integer", example=1),
+     *                 @OA\Property(property="message_content", type="string", example="Merhaba!"),
+     *                 @OA\Property(property="sent_at", type="string", format="date-time", example="2025-09-28T12:34:56"),
+     *                 @OA\Property(property="customer", type="object",
+     *                     @OA\Property(property="id", type="integer", example=1),
+     *                     @OA\Property(property="name", type="string", example="Ahmet Yılmaz"),
+     *                     @OA\Property(property="gsm", type="string", example="905551112233")
+     *                 )
+     *             )
+     *         )
+     *     )
+     * )
+     */
+    public function getSentMessages()
+    {
+        $messages = Message::with('customer')->where('is_sent', true)->get();
+        return response()->json($messages, 200);
+    }
 }

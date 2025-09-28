@@ -4,19 +4,21 @@ namespace App\Services;
 
 use App\Repositories\MessageRepository;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Log;
 
 class MessageService
 {
     public function __construct(protected MessageRepository $repository) {}
 
+
     public function processMessages(): void
     {
-        $messages = $this->repository->getPendingMessages();
+        $messages = $this->repository->getPendingMessages()->take(2);
 
         foreach ($messages as $message) {
             try {
                 if (strlen($message->message_content) > 160) {
-                    echo "Mesaj ID $message->id karakter sınırını aştı.\n";
+                    Log::info("Mesaj ID $message->id karakter sınırını aştı.");
                     continue;
                 }
 
@@ -29,10 +31,14 @@ class MessageService
                 ], now()->addHours(2));
 
                 $this->repository->markAsSent($message);
-                echo "Mesaj ID $message->id başarıyla gönderildi.\n";
+
+                Log::info("Mesaj ID $message->id başarıyla gönderildi.");
+
+                sleep(5);
             } catch (\Exception $e) {
-                echo "Mesaj ID $message->id gönderilemedi: {$e->getMessage()}\n";
+                Log::error("Mesaj ID $message->id gönderilemedi: {$e->getMessage()}");
             }
         }
+        Log::info("Kuyrukta işlenen mesajlar tamamlandı.");
     }
 }

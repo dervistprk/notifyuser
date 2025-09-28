@@ -63,6 +63,7 @@ Veritabanında bulunan belirli bir müşteri grubuna, yine veritabanında buluna
     ```bash
     docker exec -it laravel_app php artisan storage:link
     ```
+    > Docker build `docker-compose down` komutuyla down edildikten sonra yeniden build edebilmek için **application** dizininde `rm public/storage` komutu çalıştırılarak storage link silinip docker build edildikten sonra tekrar storage link komutu çalıştırılmalıdır.
 
 11. Migration ve seeding işlemleri için:
 

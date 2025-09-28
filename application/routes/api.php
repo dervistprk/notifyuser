@@ -23,3 +23,4 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::any('/receive-message', [MessageController::class, 'receive']);
 Route::get('/test-api-connection', [MessageController::class, 'test']);
+Route::get('/get-sent-messages', [MessageController::class, 'getSentMessages']);
