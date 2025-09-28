@@ -54,29 +54,31 @@ Veritabanında bulunan belirli bir müşteri grubuna, yine veritabanında buluna
    npm install
    ```
 
-8. Veritabanı bağlantısının doğru yapıldığını test etmek için tarayıcıdan şu adrese gidilir:
-   [http://localhost:8000/test-db-connection](http://localhost:8000/test-db-connection)
-
-   > Sayfada **`PostgreSQL bağlantısı başarılı.`** mesajı görünmelidir.
-
-9. Uygulama anahtarını oluşturmak için:
-
+8. Uygulama anahtarını oluşturmak için:
+   
    ```bash
    docker exec -it laravel_app php artisan key:generate
    ```
-10. Storage-public link bağlantısı oluşturulur:
+
+10. Veritabanı bağlantısının doğru yapıldığını test etmek için tarayıcıdan şu adrese gidilir:
+
+   [http://localhost:8000/test-db-connection](http://localhost:8000/test-db-connection)
+
+   > Sayfada **`PostgreSQL bağlantısı başarılı.`** mesajı görünmelidir.
+   
+11. Storage-public link bağlantısı oluşturulur:
 
     ```bash
     docker exec -it laravel_app php artisan storage:link
     ```
 
-11. Migration ve seeding işlemleri için:
+12. Migration ve seeding işlemleri için:
 
     ```bash
     docker exec -it laravel_app php artisan migrate:refresh --seed
     ```
 
-12. Eklenen tablo ve verileri görmek için `http://localhost:5050/` adresindeki **PgAdmin** arayüzü kullanılır.
+13. Eklenen tablo ve verileri görmek için `http://localhost:5050/` adresindeki **PgAdmin** arayüzü kullanılır.
 
     Giriş bilgileri:
 
@@ -85,13 +87,13 @@ Veritabanında bulunan belirli bir müşteri grubuna, yine veritabanında buluna
 
     (Bu bilgiler `docker-compose.yml` dosyasında ayarlanmıştır.)
 
-13. Giriş yaptıktan sonra yeni sunucu eklemek için üst menüden:
+14. Giriş yaptıktan sonra yeni sunucu eklemek için üst menüden:
     `Object => Register => Server` yolunu izleyin.
 
-14. **General** sekmesinde, sunucu adı olarak istediğiniz ismi verebilirsiniz.
+15. **General** sekmesinde, sunucu adı olarak istediğiniz ismi verebilirsiniz.
     Örneğin: `notifyuser`
 
-15. **Connection** sekmesindeki alanlara şu bilgiler girilir:
+16. **Connection** sekmesindeki alanlara şu bilgiler girilir:
 
     * **Host name/address:** `postgres`
     * **Username:** `dervis`
@@ -99,10 +101,10 @@ Veritabanında bulunan belirli bir müşteri grubuna, yine veritabanında buluna
 
     Ardından **Save** butonuna tıklayın.
 
-16. Migration ile oluşturulan tablolar şu yoldan görülebilir:
+17. Migration ile oluşturulan tablolar şu yoldan görülebilir:
     `Schemas => public => Tables`
 
-17. Tablolardaki verilere erişmek için:
+18. Tablolardaki verilere erişmek için:
 
     * İlgili tabloya sağ tıklayıp `View/Edit Data` seçeneğini kullanın
     * veya üst menüden `Tools => Query Tools` yolunu izleyerek sorgu yazın:
@@ -111,7 +113,7 @@ Veritabanında bulunan belirli bir müşteri grubuna, yine veritabanında buluna
     SELECT * FROM public.customers ORDER BY id ASC;
     ```
 
-18. Müşterilere mesaj gönderme işlemini başlatmak için:
+19. Müşterilere mesaj gönderme işlemini başlatmak için:
 
     ```bash
     docker exec -it laravel_app php artisan messages:send
@@ -119,7 +121,7 @@ Veritabanında bulunan belirli bir müşteri grubuna, yine veritabanında buluna
 
     Bu işlem mesajları kuyruğa alır.
 
-19. Kuyruğu çalıştırmak için:
+20. Kuyruğu çalıştırmak için:
 
     ```bash
     docker exec -it laravel_app php artisan queue:work
@@ -128,7 +130,7 @@ Veritabanında bulunan belirli bir müşteri grubuna, yine veritabanında buluna
     Bu komut, gönderilmeye uygun mesajların (160 karakterden kısa olanlar) gönderilmesini ve gönderim bilgilerinin terminalde görüntülenmesini sağlar.
     Alternatif olarak, `messages` tablosundaki `is_sent` kolonu `true` olan kayıtlar incelenebilir.
 
-20. Manuel çalıştırmak yerine **Laravel Schedule** yapısı kullanarak otomatik gönderim sağlanabilir:
+21. Manuel çalıştırmak yerine **Laravel Schedule** yapısı kullanarak otomatik gönderim sağlanabilir:
 
     ```bash
     docker exec laravel_app php artisan schedule:run
