@@ -1,0 +1,81 @@
+{
+	"info": {
+		"_postman_id": "a73f87a9-841b-4a17-a4ef-c3e8e12d3499",
+		"name": "webhook",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "17459731"
+	},
+	"item": [
+		{
+			"name": "sendMessage",
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {}
+			},
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"to\": \"+905366213803\",\r\n    \"message_content\": \"Test message content \"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://932b7ab8-4454-40c9-8d39-6b587aeea9be.webhook.site/",
+					"protocol": "http",
+					"host": [
+						"932b7ab8-4454-40c9-8d39-6b587aeea9be",
+						"webhook",
+						"site"
+					],
+					"path": [
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "TestConnection",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://932b7ab8-4454-40c9-8d39-6b587aeea9be.webhook.site/?test=true",
+					"protocol": "http",
+					"host": [
+						"932b7ab8-4454-40c9-8d39-6b587aeea9be",
+						"webhook",
+						"site"
+					],
+					"path": [
+						""
+					],
+					"query": [
+						{
+							"key": "test",
+							"value": "true",
+							"description": "Test true response dönmek için etkinleştirin."
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
