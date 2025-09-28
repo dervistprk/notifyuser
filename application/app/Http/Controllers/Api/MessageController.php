@@ -91,11 +91,12 @@ class MessageController extends Controller
      *     path="/api/test-api-connection",
      *     summary="API bağlantısını test et",
      *     tags={"Messages"},
-     *     @OA\Parameter(
-     *         name="test",
-     *         in="query",
-     *         required=false,
-     *         @OA\Schema(type="boolean")
+         * @OA\Parameter(
+         * name="test",
+         * in="query",
+         * required=false,
+         * description="true gönderilirse bağlantı başarılı döner, false veya eksikse başarısız döner",
+         * @OA\Schema(type="boolean")
      *     ),
      *     @OA\Response(
      *         response=200,

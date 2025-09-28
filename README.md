@@ -1,7 +1,3 @@
-Aşağıda HTML olarak yazılmış README içeriğini, GitHub’ın desteklediği **Markdown** (`.md`) formatına uygun şekilde dönüştürdüm ve düzenledim. GitHub sayfanda bu içeriği doğrudan `README.md` dosyasına yapıştırabilirsin:
-
----
-
 #  NotifyUser App
 
 ##  Uygulama Amacı
@@ -68,14 +64,19 @@ Veritabanında bulunan belirli bir müşteri grubuna, yine veritabanında buluna
    ```bash
    docker exec -it laravel_app php artisan key:generate
    ```
+10. Storage-public link bağlantısı oluşturulur:
 
-10. Migration ve seeding işlemleri için:
+    ```bash
+    docker exec -it laravel_app php artisan storage:link
+    ```
+
+11. Migration ve seeding işlemleri için:
 
     ```bash
     docker exec -it laravel_app php artisan migrate:refresh --seed
     ```
 
-11. Eklenen tablo ve verileri görmek için `http://localhost:5050/` adresindeki **PgAdmin** arayüzü kullanılır.
+12. Eklenen tablo ve verileri görmek için `http://localhost:5050/` adresindeki **PgAdmin** arayüzü kullanılır.
 
     Giriş bilgileri:
 
@@ -84,13 +85,13 @@ Veritabanında bulunan belirli bir müşteri grubuna, yine veritabanında buluna
 
     (Bu bilgiler `docker-compose.yml` dosyasında ayarlanmıştır.)
 
-12. Giriş yaptıktan sonra yeni sunucu eklemek için üst menüden:
+13. Giriş yaptıktan sonra yeni sunucu eklemek için üst menüden:
     `Object => Register => Server` yolunu izleyin.
 
-13. **General** sekmesinde, sunucu adı olarak istediğiniz ismi verebilirsiniz.
+14. **General** sekmesinde, sunucu adı olarak istediğiniz ismi verebilirsiniz.
     Örneğin: `notifyuser`
 
-14. **Connection** sekmesindeki alanlara şu bilgiler girilir:
+15. **Connection** sekmesindeki alanlara şu bilgiler girilir:
 
     * **Host name/address:** `postgres`
     * **Username:** `dervis`
@@ -98,10 +99,10 @@ Veritabanında bulunan belirli bir müşteri grubuna, yine veritabanında buluna
 
     Ardından **Save** butonuna tıklayın.
 
-15. Migration ile oluşturulan tablolar şu yoldan görülebilir:
+16. Migration ile oluşturulan tablolar şu yoldan görülebilir:
     `Schemas => public => Tables`
 
-16. Tablolardaki verilere erişmek için:
+17. Tablolardaki verilere erişmek için:
 
     * İlgili tabloya sağ tıklayıp `View/Edit Data` seçeneğini kullanın
     * veya üst menüden `Tools => Query Tools` yolunu izleyerek sorgu yazın:
@@ -110,7 +111,7 @@ Veritabanında bulunan belirli bir müşteri grubuna, yine veritabanında buluna
     SELECT * FROM public.customers ORDER BY id ASC;
     ```
 
-17. Müşterilere mesaj gönderme işlemini başlatmak için:
+18. Müşterilere mesaj gönderme işlemini başlatmak için:
 
     ```bash
     docker exec -it laravel_app php artisan messages:send
@@ -118,7 +119,7 @@ Veritabanında bulunan belirli bir müşteri grubuna, yine veritabanında buluna
 
     Bu işlem mesajları kuyruğa alır.
 
-18. Kuyruğu çalıştırmak için:
+19. Kuyruğu çalıştırmak için:
 
     ```bash
     docker exec -it laravel_app php artisan queue:work
@@ -127,7 +128,7 @@ Veritabanında bulunan belirli bir müşteri grubuna, yine veritabanında buluna
     Bu komut, gönderilmeye uygun mesajların (160 karakterden kısa olanlar) gönderilmesini ve gönderim bilgilerinin terminalde görüntülenmesini sağlar.
     Alternatif olarak, `messages` tablosundaki `is_sent` kolonu `true` olan kayıtlar incelenebilir.
 
-19. Manuel çalıştırmak yerine **Laravel Schedule** yapısı kullanarak otomatik gönderim sağlanabilir:
+20. Manuel çalıştırmak yerine **Laravel Schedule** yapısı kullanarak otomatik gönderim sağlanabilir:
 
     ```bash
     docker exec laravel_app php artisan schedule:run
@@ -160,3 +161,4 @@ Veritabanında bulunan belirli bir müşteri grubuna, yine veritabanında buluna
     ```bash
     docker exec -it laravel_app php artisan test
     ```
+    Projenin swagger test dokümantasyonuna `http://localhost:8000/api/documentation` adresinden ulaşılabilir.

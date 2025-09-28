@@ -94,6 +94,7 @@
                     {
                         "name": "test",
                         "in": "query",
+                        "description": "true gönderilirse bağlantı başarılı döner, false veya eksikse başarısız döner",
                         "required": false,
                         "schema": {
                             "type": "boolean"
