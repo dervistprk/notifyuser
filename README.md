@@ -162,3 +162,4 @@ Veritabanında bulunan belirli bir müşteri grubuna, yine veritabanında buluna
     docker exec -it laravel_app php artisan test
     ```
     Projenin swagger test dokümantasyonuna `http://localhost:8000/api/documentation` adresinden ulaşılabilir.
+    Postman kullanılarak test işlemlerinin koşulabilmesi için proje ana dizininde bulunan `webhook.postman_collection.json` dosyası **Postman** içerisine import edilebilir.
