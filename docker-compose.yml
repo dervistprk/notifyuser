@@ -70,6 +70,18 @@ services:
     depends_on:
       - postgres
 
+  worker:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    command: php artisan queue:work
+    working_dir: /var/www/html
+    volumes:
+      - ./application:/var/www/html
+    depends_on:
+      - app
+      - redis
+
 volumes:
   pgdata:
   pgadmin_data:

@@ -16,7 +16,7 @@ class MessageService
 
         foreach ($messages as $message) {
             if (strlen($message->message_content) > 160) {
-                Log::info("Mesaj ID {$message->id} karakter sınırını aştı.");
+                Log::info("Mesaj ID $message->id karakter sınırını aştı.");
                 echo "Mesaj ID $message->id karakter sınırını aştı.\n";
                 continue;
             }
@@ -27,7 +27,7 @@ class MessageService
             Cache::put("message:$message->id", [
                 'message_id' => $messageId,
                 'sent_at'    => $sentAt,
-            ], now()->addHours(1));
+            ], now()->addHours(2));
 
             $this->repository->markAsSent($message);
         }
