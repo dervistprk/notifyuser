@@ -1,0 +1,154 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "NotifyUser API",
+        "description": "Mesaj gönderim sistemi için API dokümantasyonu",
+        "contact": {
+            "email": "dervis@admin.com"
+        },
+        "version": "1.0.0"
+    },
+    "paths": {
+        "/api/receive-message": {
+            "post": {
+                "tags": [
+                    "Messages"
+                ],
+                "summary": "Yeni mesaj al ve kuyruğa gönder",
+                "operationId": "c5a1d4fc3184eaa79064272b0998ca0c",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "to",
+                                    "message_content"
+                                ],
+                                "properties": {
+                                    "to": {
+                                        "type": "string",
+                                        "example": "905551112233"
+                                    },
+                                    "message_content": {
+                                        "type": "string",
+                                        "example": "Merhaba, bu bir test mesajıdır."
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "202": {
+                        "description": "Mesaj kuyruğa alındı",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Accepted"
+                                        },
+                                        "message_id": {
+                                            "type": "integer",
+                                            "example": 1
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Müşteri bulunamadı",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Customer not found."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Doğrulama hatası"
+                    }
+                }
+            }
+        },
+        "/api/test-api-connection": {
+            "get": {
+                "tags": [
+                    "Messages"
+                ],
+                "summary": "API bağlantısını test et",
+                "operationId": "b1283c6942298c3d3922ff7a2a1fbbda",
+                "parameters": [
+                    {
+                        "name": "test",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "boolean"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Bağlantı başarılı",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "test, connected!"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "301": {
+                        "description": "Parametre eksik",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": false
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Please send test key as a parameter."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "tags": [
+        {
+            "name": "Messages",
+            "description": "Messages"
+        }
+    ]
+}

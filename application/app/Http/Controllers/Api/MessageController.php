@@ -9,9 +9,44 @@ use App\Models\Message;
 use App\Jobs\SendPendingMessagesJob;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Validation\ValidationException;
+use OpenApi\Annotations as OA;
 
 class MessageController extends Controller
 {
+    /**
+     * @OA\Post(
+     *     path="/api/receive-message",
+     *     summary="Yeni mesaj al ve kuyruğa gönder",
+     *     tags={"Messages"},
+     *     @OA\RequestBody(
+     *         required=true,
+     *         @OA\JsonContent(
+     *             required={"to","message_content"},
+     *             @OA\Property(property="to", type="string", example="905551112233"),
+     *             @OA\Property(property="message_content", type="string", example="Merhaba, bu bir test mesajıdır.")
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=202,
+     *         description="Mesaj kuyruğa alındı",
+     *         @OA\JsonContent(
+     *             @OA\Property(property="message", type="string", example="Accepted"),
+     *             @OA\Property(property="message_id", type="integer", example=1)
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=404,
+     *         description="Müşteri bulunamadı",
+     *         @OA\JsonContent(
+     *             @OA\Property(property="message", type="string", example="Customer not found.")
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=422,
+     *         description="Doğrulama hatası"
+     *     )
+     * )
+     */
     public function receive(Request $request)
     {
         try {
@@ -51,9 +86,40 @@ class MessageController extends Controller
         ], 202);
     }
 
+    /**
+     * @OA\Get(
+     *     path="/api/test-api-connection",
+     *     summary="API bağlantısını test et",
+     *     tags={"Messages"},
+     *     @OA\Parameter(
+     *         name="test",
+     *         in="query",
+     *         required=false,
+     *         @OA\Schema(type="boolean")
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="Bağlantı başarılı",
+     *         @OA\JsonContent(
+     *             @OA\Property(property="success", type="boolean", example=true),
+     *             @OA\Property(property="message", type="string", example="test, connected!")
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=301,
+     *         description="Parametre eksik",
+     *         @OA\JsonContent(
+     *             @OA\Property(property="success", type="boolean", example=false),
+     *             @OA\Property(property="message", type="string", example="Please send test key as a parameter.")
+     *         )
+     *     )
+     * )
+     */
     public function test(Request $request)
     {
-        if ($request->test) {
+        $test = filter_var($request->query('test'), FILTER_VALIDATE_BOOLEAN, FILTER_NULL_ON_FAILURE);
+
+        if ($test === true) {
             return response()->json([
                 'success' => true,
                 'message' => 'test, connected!',
@@ -62,7 +128,7 @@ class MessageController extends Controller
 
         return response()->json([
             'success' => false,
-            'message' => 'Please send test key as a parameter.',
+            'message' => 'Please send test value true as a parameter.',
         ], 301);
     }
 }
